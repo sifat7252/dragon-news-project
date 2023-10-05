@@ -1,20 +1,34 @@
 import { Link } from "react-router-dom"
 import userDefaultPic from '../../../assets/user.png'
+import { useContext } from "react";
+import { AuthContext } from "../../../Providers/AuthProvider";
 
 
 
 const Navbar = () => {
 
+  const { user,  logOut } = useContext(AuthContext);
+
+  const handleSignOut = ()=>{
+    logOut()
+    .then(result=>{
+      console.log(result.user)
+    })
+    .catch(error =>{
+      console.error(error)
+    })
+  }
+
     const navLinks = 
     <> 
-    <li className="/"><Link to="">Home</Link></li>
-    <li className="/about"><Link to="">About</Link></li>
-    <li className="/career"><Link to="">Career</Link></li>
+    <li className="/"><Link to="/">Home</Link></li>
+    <li className=""><Link to="/about">About</Link></li>
+    <li className=""><Link to="/career">Career</Link></li>
     
     </>
   return (
     <div>
-      <div className="navbar bg-base-100">
+      <div className="navbar bg-base-100 shadow-sm">
         <div className="navbar-start">
           <div className="dropdown">
             <label tabIndex={0} className="btn btn-ghost lg:hidden">
@@ -53,9 +67,13 @@ const Navbar = () => {
           <img src={userDefaultPic} />
         </div>
       </label>
-         <Link>
-         <button className="btn btn-sm lg:btn-lg  ml-3">Login</button>
+      {
+        user ?  <button onClick={handleSignOut} className="btn btn-sm lg:btn-md bg-slate-500 ml-3 text-white">LogOut</button> :
+
+         <Link to='/login'>
+         <button className="btn btn-sm lg:btn-md bg-slate-500  ml-3 text-white">Login</button>
          </Link>
+      }
         </div>
       </div>
     </div>
