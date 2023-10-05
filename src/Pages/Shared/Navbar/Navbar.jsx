@@ -54,7 +54,7 @@ const Navbar = () => {
         </div>
       </label>
          <Link>
-         <button className="btn">Login</button>
+         <button className="btn btn-sm lg:btn-lg  ml-3">Login</button>
          </Link>
         </div>
       </div>
